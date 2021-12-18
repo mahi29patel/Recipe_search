@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
 import Recipe from './recipe';
-
+// import Register from "./components/addrecipe/addrecipe"
+import NavBar from "./components/navbar/nav"
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 const App = () => {
 
   const APP_ID = 'a99bd604';
@@ -39,6 +41,10 @@ const App = () => {
 
   return (
     <div className="App">
+     <Router>
+      <NavBar />
+
+      </Router>
       <h1 className="app-title">Find Food</h1>
       <p className="app-subtitle">Search for your favourite recipe</p>
       <form onSubmit={getSearch} className="search-form">
