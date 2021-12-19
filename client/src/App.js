@@ -1,69 +1,30 @@
-import React, {useEffect, useState} from 'react';
-import './App.css';
-import Recipe from './recipe';
-// import Register from "./components/addrecipe/addrecipe"
-import NavBar from "./components/navbar/nav"
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Recipes from "./components/Recipes";
+import Navbar from "./layout/Navbar";
+import { Routes, Route } from 'react-router-dom'
+import Recipe from "./components/Recipe";
+import Footer from "./layout/Footer";
+import { Toaster } from "react-hot-toast";
+import { useState } from "react";
+
 const App = () => {
+  const [search, setSearch] = useState('')
 
-  const APP_ID = 'a99bd604';
-  const APP_KEY = '801b3f6953e413a5d229de1043ba6dbd';
-
-  const [recipes, setRecipes] = useState([]);
-  const [search, setSearch] = useState('');
-  const [query, setQuery] = useState('');
-
-  useEffect(() => {
-    const getRecipes = async () => {
-      const response = await fetch(`https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`);
-      const data = await response.json();
-      setRecipes(data.hits);
-      console.log(data);
-    }
-    getRecipes();
-  }, [query]);
-
-  // const getRecipes = async () => {
-  //   const response = await fetch(`https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`);
-  //   const data = await response.json();
-  //   setRecipes(data.hits);
-  // }
-
-  const updateSearch = e => {
-    setSearch(e.target.value);
-  }
-
-  const getSearch = e => {
-    e.preventDefault();
-    setQuery(search);
-    setSearch('');
-  }
+  const pth = window.location.host.includes('localhost') ? '/' : '/recipe/client/'
 
   return (
-    <div className="App">
-     <Router>
-      <NavBar />
+    <div>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+      />
+      <Navbar setSearch={setSearch} />
 
-      </Router>
-      <h1 className="app-title">Find Food</h1>
-      <p className="app-subtitle">Search for your favourite recipe</p>
-      <form onSubmit={getSearch} className="search-form">
-        <input className="search-bar" type="text" value={search} onChange={updateSearch} placeholder="Plese enter an ingredient or a dish name" ></input>
-        <button className="search-button" type="submit">
-          Search
-        </button>
-      </form>
-      <div className="reciperesults">
-      {recipes.map(recipe => (
-        <Recipe 
-        key={recipe.recipe.label}
-        url={recipe.recipe.url}
-        title={recipe.recipe.label} 
-        calories={recipe.recipe.calories}
-        image={recipe.recipe.image}
-        ingredients={recipe.recipe.ingredients}></Recipe>
-      ))}
-      </div>
+      <Routes>
+        <Route path={pth} element={<Recipes search={search} />} />
+        <Route path={`${pth}/recipe/:id`} element={<Recipe />} />
+      </Routes>
+
+      <Footer />
     </div>
   );
 }
