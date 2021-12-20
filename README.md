@@ -1,5 +1,5 @@
 
-# Project Title
+# Recipe Review web application
 
 This project aims to allow users a platform where they can access, rate, and share different recipes; allowing them to explore, assess, and contribute all on one platform.
 The site will allow access to all recipes for all users, which they will then be able to rate in order to convey their opinions to other users without the necessity of one-to-one communication.
