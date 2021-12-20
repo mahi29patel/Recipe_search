@@ -9,7 +9,7 @@
         "start": "recipeRoutes.js"
     },
     "keywords": [],
-    "author": "Kartik Gupta",
+    "author": "Mahi Patel",
     "license": "ISC",
     "dependencies": {
         "cors": "^2.8.5",
